@@ -1,11 +1,18 @@
 services:
   - type: web
     name: heart-disease-predictor
-    env: python
-    runtime: python3.11
-    buildCommand: pip install -r requirements.txt && python train_model.py
-    startCommand: gunicorn app:app
+    env: docker
+    dockerfilePath: ./Dockerfile
     plan: free
     envVars:
-      - key: PYTHON_VERSION
-        value: "3.11.9"
+      - key: FLASK_ENV
+        value: production
+      - key: MAIL_SERVER
+        value: smtp.gmail.com
+      - key: MAIL_PORT
+        value: "587"
+      - key: MAIL_USE_TLS
+        value: "true"
+      - key: MAIL_USE_SSL
+        value: "false"
+      # Set MAIL_USERNAME, MAIL_PASSWORD, MAIL_DEFAULT_SENDER in Render dashboard
