@@ -3,3 +3,5 @@ gunicorn==22.0.0
 numpy==1.26.4
 scikit-learn==1.5.1
 pandas==2.2.2
+Flask-Mail==0.10.0
+python-dotenv==1.0.1
