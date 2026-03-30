@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heart Disease Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-label="Heart Disease Predictor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 28C16 28 3 19.5 3 11.5C3 7.91 5.91 5 9.5 5C11.74 5 13.72 6.09 15 7.77C16.28 6.09 18.26 5 20.5 5C24.09 5 27 7.91 27 11.5C27 19.5 16 28 16 28Z" fill="var(--color-notification)" opacity="0.9"/>
+          <path d="M10 15 L13 12 L16 18 L19 10 L22 15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span class="logo-text">CardioPredict</span>
+      </div>
+      <button class="theme-toggle" data-theme-toggle aria-label="Switch theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="hero">
+      <h1 class="hero-title">Heart Disease <em>Risk Predictor</em></h1>
+      <p class="hero-sub">Adjust the sliders below to match patient data and get an instant ML-powered prediction.</p>
+    </section>
+
+    <form class="predictor-form" id="predictorForm">
+      <div class="sliders-grid">
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="age">Age</label>
+            <span class="slider-value" id="age-val">54</span>
+          </div>
+          <input type="range" id="age" name="age" min="29" max="77" value="54" step="1">
+          <div class="slider-range-labels"><span>29</span><span>77</span></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="sex">Sex</label>
+            <span class="slider-value" id="sex-val">Male</span>
+          </div>
+          <input type="range" id="sex" name="sex" min="0" max="1" value="1" step="1">
+          <div class="slider-range-labels"><span>Female (0)</span><span>Male (1)</span></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="cp">Chest Pain Type</label>
+            <span class="slider-value" id="cp-val">Typical Angina</span>
+          </div>
+          <input type="range" id="cp" name="cp" min="0" max="3" value="0" step="1">
+          <div class="slider-range-labels"><span>Typical Angina (0)</span><span>Asymptomatic (3)</span></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="trestbps">Resting BP (mmHg)</label>
+            <span class="slider-value" id="trestbps-val">120</span>
+          </div>
+          <input type="range" id="trestbps" name="trestbps" min="94" max="200" value="120" step="1">
+          <div class="slider-range-labels"><span>94</span><span>200</span></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="chol">Cholesterol (mg/dl)</label>
+            <span class="slider-value" id="chol-val">240</span>
+          </div>
+          <input type="range" id="chol" name="chol" min="126" max="564" value="240" step="1">
+          <div class="slider-range-labels"><span>126</span><span>564</span></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="fbs">Fasting Blood Sugar &gt; 120mg/dl</label>
+            <span class="slider-value" id="fbs-val">No</span>
+          </div>
+          <input type="range" id="fbs" name="fbs" min="0" max="1" value="0" step="1">
+          <div class="slider-range-labels"><span>No (0)</span><span>Yes (1)</span></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="restecg">Resting ECG</label>
+            <span class="slider-value" id="restecg-val">Normal</span>
+          </div>
+          <input type="range" id="restecg" name="restecg" min="0" max="2" value="0" step="1">
+          <div class="slider-range-labels"><span>Normal (0)</span><span>LVH (2)</span></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="thalach">Max Heart Rate Achieved</label>
+            <span class="slider-value" id="thalach-val">150</span>
+          </div>
+          <input type="range" id="thalach" name="thalach" min="71" max="202" value="150" step="1">
+          <div class="slider-range-labels"><span>71</span><span>202</span></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="exang">Exercise Induced Angina</label>
+            <span class="slider-value" id="exang-val">No</span>
+          </div>
+          <input type="range" id="exang" name="exang" min="0" max="1" value="0" step="1">
+          <div class="slider-range-labels"><span>No (0)</span><span>Yes (1)</span></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="oldpeak">ST Depression (Oldpeak)</label>
+            <span class="slider-value" id="oldpeak-val">1.0</span>
+          </div>
+          <input type="range" id="oldpeak" name="oldpeak" min="0" max="6.2" value="1.0" step="0.1">
+          <div class="slider-range-labels"><span>0.0</span><span>6.2</span></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="slope">Slope of Peak ST Segment</label>
+            <span class="slider-value" id="slope-val">Upsloping</span>
+          </div>
+          <input type="range" id="slope" name="slope" min="0" max="2" value="0" step="1">
+          <div class="slider-range-labels"><span>Upsloping (0)</span><span>Downsloping (2)</span></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="ca">Major Vessels Coloured by Fluoroscopy</label>
+            <span class="slider-value" id="ca-val">0</span>
+          </div>
+          <input type="range" id="ca" name="ca" min="0" max="3" value="0" step="1">
+          <div class="slider-range-labels"><span>0</span><span>3</span></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-header">
+            <label for="thal">Thalassemia</label>
+            <span class="slider-value" id="thal-val">Normal</span>
+          </div>
+          <input type="range" id="thal" name="thal" min="0" max="3" value="1" step="1">
+          <div class="slider-range-labels"><span>Normal (1)</span><span>Reversable Defect (3)</span></div>
+        </div>
+
+      </div>
+
+      <div class="predict-btn-wrap">
+        <button type="submit" class="btn-predict" id="predictBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Predict Risk
+        </button>
+      </div>
+    </form>
+
+    <section class="result-section" id="resultSection" aria-live="polite">
+      <div class="result-card" id="resultCard">
+        <div class="result-icon" id="resultIcon"></div>
+        <div class="result-text">
+          <h2 class="result-title" id="resultTitle"></h2>
+          <p class="result-desc" id="resultDesc"></p>
+        </div>
+        <div class="prob-bars">
+          <div class="prob-bar-wrap">
+            <span>No Disease</span>
+            <div class="prob-bar-track">
+              <div class="prob-bar prob-safe" id="probSafeBar"></div>
+            </div>
+            <span class="prob-pct" id="probSafePct">-</span>
+          </div>
+          <div class="prob-bar-wrap">
+            <span>Heart Disease</span>
+            <div class="prob-bar-track">
+              <div class="prob-bar prob-risk" id="probRiskBar"></div>
+            </div>
+            <span class="prob-pct" id="probRiskPct">-</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>⚠️ This tool is for educational purposes only. Always consult a licensed medical professional for health decisions.</p>
+  </footer>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
