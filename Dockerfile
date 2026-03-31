@@ -3,7 +3,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Minimal build tools (only needed for any C extensions that still require it)
+# Minimal build tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     && rm -rf /var/lib/apt/lists/*
@@ -24,6 +24,7 @@ RUN python train_model.py
 # Render free tier injects PORT=10000 — expose it
 EXPOSE 10000
 
-# Use 1 worker (free tier has 512MB RAM — 2 workers causes OOM/timeout)
-# $PORT is injected by Render at runtime (defaults to 10000)
-CMD gunicorn --bind 0.0.0.0:${PORT:-10000} --workers 1 --threads 2 --timeout 120 app:app
+# CRITICAL: Use shell form (not exec form) so $PORT is expanded at runtime
+# --timeout 300 gives gunicorn 5 min to boot on slow free-tier instances
+# --preload loads the Flask app before forking workers (faster boot)
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-10000} --workers 1 --threads 4 --timeout 300 --preload app:app"]

@@ -4,10 +4,8 @@ services:
     env: docker
     dockerfilePath: ./Dockerfile
     plan: free
-    # Render needs to know which port the container exposes
-    port: 10000
-    # Health check so Render knows the app is ready (prevents timeout)
-    healthCheckPath: /
+    # /health returns JSON instantly — no template rendering, no model inference
+    healthCheckPath: /health
     envVars:
       - key: FLASK_ENV
         value: production
