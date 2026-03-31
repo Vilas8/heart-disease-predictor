@@ -28,7 +28,7 @@
   <main class="main-content">
     <section class="hero">
       <h1 class="hero-title">Heart Disease <em>Risk Predictor</em></h1>
-      <p class="hero-sub">Adjust the sliders below to match patient data and get an instant ML-powered prediction — delivered to your inbox.</p>
+      <p class="hero-sub">Adjust the inputs below to match patient data and get an instant ML-powered prediction — delivered to your inbox.</p>
     </section>
 
     <form class="predictor-form" id="predictorForm" novalidate>
@@ -53,85 +53,148 @@
 
       <div class="sliders-grid">
 
+        <!-- AGE — slider, min now 20 -->
         <div class="slider-card">
-          <div class="slider-header"><label for="age">Age</label><span class="slider-value" id="age-val">54</span></div>
-          <input type="range" id="age" name="age" min="29" max="77" value="54" step="1">
-          <div class="slider-range-labels"><span>29</span><span>77</span></div>
+          <div class="slider-header"><label for="age">Age</label><span class="slider-value" id="age-val">45</span></div>
+          <input type="range" id="age" name="age" min="20" max="77" value="45" step="1">
+          <div class="slider-range-labels"><span>20</span><span>77</span></div>
         </div>
 
-        <div class="slider-card">
-          <div class="slider-header"><label for="sex">Sex</label><span class="slider-value" id="sex-val">Male</span></div>
-          <input type="range" id="sex" name="sex" min="0" max="1" value="1" step="1">
-          <div class="slider-range-labels"><span>Female (0)</span><span>Male (1)</span></div>
+        <!-- GENDER — pill toggle (2 options) -->
+        <div class="slider-card select-card">
+          <div class="slider-header"><label>Gender</label></div>
+          <input type="hidden" id="sex" name="sex" value="1">
+          <div class="pill-toggle" id="sex-pills" role="group" aria-label="Gender">
+            <button type="button" class="pill-btn" data-val="0">Female</button>
+            <button type="button" class="pill-btn active" data-val="1">Male</button>
+          </div>
         </div>
 
-        <div class="slider-card">
-          <div class="slider-header"><label for="cp">Chest Pain Type</label><span class="slider-value" id="cp-val">Typical Angina</span></div>
-          <input type="range" id="cp" name="cp" min="0" max="3" value="0" step="1">
-          <div class="slider-range-labels"><span>Typical Angina (0)</span><span>Asymptomatic (3)</span></div>
+        <!-- CHEST PAIN TYPE — custom select -->
+        <div class="slider-card select-card">
+          <div class="slider-header"><label for="cp">Chest Pain Type</label></div>
+          <input type="hidden" id="cp" name="cp" value="0">
+          <div class="custom-select" id="cp-select">
+            <button type="button" class="select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="select-label">Typical Angina</span>
+              <svg class="select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <ul class="select-dropdown" role="listbox">
+              <li role="option" data-val="0" class="selected">Typical Angina</li>
+              <li role="option" data-val="1">Atypical Angina</li>
+              <li role="option" data-val="2">Non-Anginal Pain</li>
+              <li role="option" data-val="3">Asymptomatic</li>
+            </ul>
+          </div>
         </div>
 
+        <!-- RESTING BP — slider -->
         <div class="slider-card">
           <div class="slider-header"><label for="trestbps">Resting BP (mmHg)</label><span class="slider-value" id="trestbps-val">120</span></div>
           <input type="range" id="trestbps" name="trestbps" min="94" max="200" value="120" step="1">
           <div class="slider-range-labels"><span>94</span><span>200</span></div>
         </div>
 
+        <!-- CHOLESTEROL — slider -->
         <div class="slider-card">
           <div class="slider-header"><label for="chol">Cholesterol (mg/dl)</label><span class="slider-value" id="chol-val">240</span></div>
           <input type="range" id="chol" name="chol" min="126" max="564" value="240" step="1">
           <div class="slider-range-labels"><span>126</span><span>564</span></div>
         </div>
 
-        <div class="slider-card">
-          <div class="slider-header"><label for="fbs">Fasting Blood Sugar &gt; 120mg/dl</label><span class="slider-value" id="fbs-val">No</span></div>
-          <input type="range" id="fbs" name="fbs" min="0" max="1" value="0" step="1">
-          <div class="slider-range-labels"><span>No (0)</span><span>Yes (1)</span></div>
+        <!-- FASTING BLOOD SUGAR — pill toggle -->
+        <div class="slider-card select-card">
+          <div class="slider-header"><label>Fasting Blood Sugar &gt; 120mg/dl</label></div>
+          <input type="hidden" id="fbs" name="fbs" value="0">
+          <div class="pill-toggle" id="fbs-pills" role="group" aria-label="Fasting Blood Sugar">
+            <button type="button" class="pill-btn active" data-val="0">No</button>
+            <button type="button" class="pill-btn" data-val="1">Yes</button>
+          </div>
         </div>
 
-        <div class="slider-card">
-          <div class="slider-header"><label for="restecg">Resting ECG</label><span class="slider-value" id="restecg-val">Normal</span></div>
-          <input type="range" id="restecg" name="restecg" min="0" max="2" value="0" step="1">
-          <div class="slider-range-labels"><span>Normal (0)</span><span>LVH (2)</span></div>
+        <!-- RESTING ECG — custom select -->
+        <div class="slider-card select-card">
+          <div class="slider-header"><label for="restecg">Resting ECG</label></div>
+          <input type="hidden" id="restecg" name="restecg" value="0">
+          <div class="custom-select" id="restecg-select">
+            <button type="button" class="select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="select-label">Normal</span>
+              <svg class="select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <ul class="select-dropdown" role="listbox">
+              <li role="option" data-val="0" class="selected">Normal</li>
+              <li role="option" data-val="1">ST-T Wave Abnormality</li>
+              <li role="option" data-val="2">Left Ventricular Hypertrophy</li>
+            </ul>
+          </div>
         </div>
 
+        <!-- MAX HEART RATE — slider -->
         <div class="slider-card">
           <div class="slider-header"><label for="thalach">Max Heart Rate Achieved</label><span class="slider-value" id="thalach-val">150</span></div>
           <input type="range" id="thalach" name="thalach" min="71" max="202" value="150" step="1">
           <div class="slider-range-labels"><span>71</span><span>202</span></div>
         </div>
 
-        <div class="slider-card">
-          <div class="slider-header"><label for="exang">Exercise Induced Angina</label><span class="slider-value" id="exang-val">No</span></div>
-          <input type="range" id="exang" name="exang" min="0" max="1" value="0" step="1">
-          <div class="slider-range-labels"><span>No (0)</span><span>Yes (1)</span></div>
+        <!-- EXERCISE INDUCED ANGINA — pill toggle -->
+        <div class="slider-card select-card">
+          <div class="slider-header"><label>Exercise Induced Angina</label></div>
+          <input type="hidden" id="exang" name="exang" value="0">
+          <div class="pill-toggle" id="exang-pills" role="group" aria-label="Exercise Induced Angina">
+            <button type="button" class="pill-btn active" data-val="0">No</button>
+            <button type="button" class="pill-btn" data-val="1">Yes</button>
+          </div>
         </div>
 
+        <!-- ST DEPRESSION — slider -->
         <div class="slider-card">
           <div class="slider-header"><label for="oldpeak">ST Depression (Oldpeak)</label><span class="slider-value" id="oldpeak-val">1.0</span></div>
           <input type="range" id="oldpeak" name="oldpeak" min="0" max="6.2" value="1.0" step="0.1">
           <div class="slider-range-labels"><span>0.0</span><span>6.2</span></div>
         </div>
 
-        <div class="slider-card">
-          <div class="slider-header"><label for="slope">Slope of Peak ST Segment</label><span class="slider-value" id="slope-val">Upsloping</span></div>
-          <input type="range" id="slope" name="slope" min="0" max="2" value="0" step="1">
-          <div class="slider-range-labels"><span>Upsloping (0)</span><span>Downsloping (2)</span></div>
+        <!-- SLOPE — custom select -->
+        <div class="slider-card select-card">
+          <div class="slider-header"><label for="slope">Slope of Peak ST Segment</label></div>
+          <input type="hidden" id="slope" name="slope" value="0">
+          <div class="custom-select" id="slope-select">
+            <button type="button" class="select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="select-label">Upsloping</span>
+              <svg class="select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <ul class="select-dropdown" role="listbox">
+              <li role="option" data-val="0" class="selected">Upsloping</li>
+              <li role="option" data-val="1">Flat</li>
+              <li role="option" data-val="2">Downsloping</li>
+            </ul>
+          </div>
         </div>
 
+        <!-- MAJOR VESSELS — slider -->
         <div class="slider-card">
           <div class="slider-header"><label for="ca">Major Vessels (Fluoroscopy)</label><span class="slider-value" id="ca-val">0</span></div>
           <input type="range" id="ca" name="ca" min="0" max="3" value="0" step="1">
           <div class="slider-range-labels"><span>0</span><span>3</span></div>
         </div>
 
-        <div class="slider-card">
-          <div class="slider-header"><label for="thal">Thalassemia</label><span class="slider-value" id="thal-val">Normal</span></div>
-          <input type="range" id="thal" name="thal" min="0" max="3" value="1" step="1">
-          <div class="slider-range-labels"><span>Normal (1)</span><span>Reversable Defect (3)</span></div>
+        <!-- THALASSEMIA — custom select -->
+        <div class="slider-card select-card">
+          <div class="slider-header"><label for="thal">Thalassemia</label></div>
+          <input type="hidden" id="thal" name="thal" value="1">
+          <div class="custom-select" id="thal-select">
+            <button type="button" class="select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="select-label">Normal</span>
+              <svg class="select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <ul class="select-dropdown" role="listbox">
+              <li role="option" data-val="1" class="selected">Normal</li>
+              <li role="option" data-val="2">Fixed Defect</li>
+              <li role="option" data-val="3">Reversable Defect</li>
+            </ul>
+          </div>
         </div>
 
-      </div>
+      </div><!-- /.sliders-grid -->
 
       <div class="predict-btn-wrap">
         <button type="submit" class="btn-predict" id="predictBtn">
@@ -161,14 +224,22 @@
             <span class="prob-pct" id="probRiskPct">-</span>
           </div>
         </div>
-        <!-- Email status badge -->
         <div class="mail-status" id="mailStatus" style="display:none;"></div>
       </div>
     </section>
   </main>
 
   <footer class="app-footer">
-    <p>⚠️ This tool is for educational purposes only. Always consult a licensed medical professional for health decisions.</p>
+    <div class="footer-inner">
+      <p class="footer-disclaimer">⚠️ For educational purposes only. Always consult a licensed medical professional for health decisions.</p>
+      <div class="footer-author">
+        <span>Built by</span>
+        <a href="https://github.com/Vilas8" target="_blank" rel="noopener noreferrer" class="footer-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          Vilas Kumar N
+        </a>
+      </div>
+    </div>
   </footer>
 
   <script src="/static/script.js"></script>
