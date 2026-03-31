@@ -15,4 +15,4 @@ services:
         value: "true"
       - key: MAIL_USE_SSL
         value: "false"
-      # Set MAIL_USERNAME, MAIL_PASSWORD, MAIL_DEFAULT_SENDER in Render dashboard
+      # Add MAIL_USERNAME, MAIL_PASSWORD, MAIL_DEFAULT_SENDER in Render dashboard

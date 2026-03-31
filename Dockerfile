@@ -1,30 +1,26 @@
-# Use official Python 3.11 slim image — guarantees cp311 wheels, no source compilation
+# Locked to Python 3.11 — guarantees pre-built cp311 wheels for all packages
 FROM python:3.11-slim
 
-# Set working directory
 WORKDIR /app
 
-# Install system dependencies needed for scikit-learn / numpy
+# Minimal build tools (only needed for any C extensions that still require it)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
-    g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first (layer caching)
+# Copy requirements first for Docker layer caching
 COPY requirements.txt .
 
-# Upgrade pip and install all dependencies from pre-built wheels
+# Upgrade pip, then install — prefer binary wheels, never compile from source
 RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir --prefer-binary -r requirements.txt
 
-# Copy the rest of the application
+# Copy application source
 COPY . .
 
-# Train the model at build time so it's ready at startup
+# Train model at build time so .pkl files exist before gunicorn starts
 RUN python train_model.py
 
-# Expose port
 EXPOSE 10000
 
-# Start gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:10000", "--workers", "2", "--timeout", "120", "app:app"]
