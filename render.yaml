@@ -4,9 +4,15 @@ services:
     env: docker
     dockerfilePath: ./Dockerfile
     plan: free
+    # Render needs to know which port the container exposes
+    port: 10000
+    # Health check so Render knows the app is ready (prevents timeout)
+    healthCheckPath: /
     envVars:
       - key: FLASK_ENV
         value: production
+      - key: PORT
+        value: "10000"
       - key: MAIL_SERVER
         value: smtp.gmail.com
       - key: MAIL_PORT
