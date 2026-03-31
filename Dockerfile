@@ -21,6 +21,9 @@ COPY . .
 # Train model at build time so .pkl files exist before gunicorn starts
 RUN python train_model.py
 
+# Render free tier injects PORT=10000 — expose it
 EXPOSE 10000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:10000", "--workers", "2", "--timeout", "120", "app:app"]
+# Use 1 worker (free tier has 512MB RAM — 2 workers causes OOM/timeout)
+# $PORT is injected by Render at runtime (defaults to 10000)
+CMD gunicorn --bind 0.0.0.0:${PORT:-10000} --workers 1 --threads 2 --timeout 120 app:app
